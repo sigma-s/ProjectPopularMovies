@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Project: Popular Movies</string>
+
+    <string-array name="image_ids">
+        <item>http://movienasha.com/wp-content/uploads/2015/07/rsz_batman-v-superman-min.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/rsz_kung-fu-panda.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/rsz_x_men_apocalypse.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/civil-war.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/warcraft.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/tarzan-cast.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/creed1.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/suicide-squad-movie-poster-2.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/rsz_deadpool.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/rsz_batman-v-superman-min.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/rsz_kung-fu-panda.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/rsz_x_men_apocalypse.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/civil-war.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/warcraft.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/tarzan-cast.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/creed1.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/suicide-squad-movie-poster-2.jpg</item>
+        <item>http://movienasha.com/wp-content/uploads/2015/07/rsz_deadpool.jpg</item>
+    </string-array>
+
+    <string name="action_settings">Settings</string>
+    <string name="pref_movieSort">Movie List Sorting</string>
+    <string name="pref_movieSortType">Movie List Sort Type</string>
+    <string name="pref_movieSortType_default">Most Popular</string>
+
+    <string-array name = "pref_movieSortType_entries">
+        <item>Most Popular</item>
+        <item>Highest Rated</item>
+    </string-array>
+
+    <string-array name = "pref_movieSortType_values">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+
+</resources>
