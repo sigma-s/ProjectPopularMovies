@@ -28,7 +28,7 @@ import android.widget.GridView;
 
 public class MainActivity extends AppCompatActivity {
     private String FEED_URL = "http://api.themoviedb.org/3/discover/movie?sort_by=";
-    private String API_KEY = "5731372504f13c89f070f6c3b59086f1";
+    private String API_KEY = "add your API KEY here";
     private String SortPopular = "popularity.desc";
     private String SortRating = "vote_average.desc";
     static final String SORT_KEY = "LastSortingOrder";
