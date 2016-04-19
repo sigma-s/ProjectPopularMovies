@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp" android:paddingRight="10dp"
+    android:paddingTop="10dp" android:paddingBottom="10dp">
+    <TextView
+        android:layout_width="match_parent" android:id = "@+id/review_author"
+        android:orientation = "horizontal"
+        android:layout_height="match_parent"
+        android:textSize="15dp"
+        android:textColor="#181be7"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="match_parent" android:id = "@+id/review_content"
+        android:orientation = "horizontal" android:paddingTop="10dp"
+        android:layout_height="match_parent"
+        android:textSize="15dp"
+         />
+</LinearLayout>

@@ -26,6 +26,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <provider
+            android:authorities="com.example.neelabh.projectpopularmovies.MovieProvider"
+            android:name="com.example.neelabh.projectpopularmovies.generated.MovieProvider"
+            android:exported="false"
+            />
     </application>
 
 </manifest>

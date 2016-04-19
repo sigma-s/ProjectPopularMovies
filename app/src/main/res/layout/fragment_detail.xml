@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id = "@+id/detail_view"
+    android:visibility="invisible">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,9 +22,23 @@
         android:textAlignment="center"
         android:gravity="center"
         android:textColor="#ffffff" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        >
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+        android:scrollIndicators="top|bottom"
+        android:nestedScrollingEnabled="true">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp" android:orientation="horizontal">
+        android:layout_height="300dp" android:orientation="horizontal"
+        >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:layout_weight="2">
@@ -68,24 +84,42 @@
                 android:background="@android:drawable/btn_default"
                 android:clickable="true"
                 android:gravity="center_vertical"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="10dp" />
         </LinearLayout>
-    </LinearLayout>
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:fillViewport="true">
+        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp" android:orientation="vertical"
+            android:layout_height="wrap_content" android:orientation="vertical"
             android:id="@+id/movie_descr"
             android:textSize="15dp"
             android:paddingTop="10dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:scrollIndicators="top|bottom"
-            android:nestedScrollingEnabled="true" />
+            android:paddingRight="10dp"/>
+    <View style = "@style/Divider" />
+    <TextView android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:text = "Trailers:" />
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation = "vertical"
+        android:scrollbars = "vertical"/>
+    <View style = "@style/Divider" />
+    <TextView android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:text = "Reviews:" />
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/recyclerviewReviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation = "vertical"
+            android:scrollbars = "vertical"/>
+    </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
