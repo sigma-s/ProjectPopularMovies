@@ -57,10 +57,13 @@ public class MainFragment extends Fragment {
     private ArrayList<GridItem> gridItems;
     public static final String PAR_KEY = "com.example.neelabh.projectpopularmovies.par";
     private static final int FORECAST_LOADER = 0;
+    private boolean mUseTodayLayout;
+    private int id;
+    private boolean flag=false;
 
     public interface Callback{
 
-        public void onItemSelected(Uri dateUri);
+        public void onItemSelected(MovieItem movieItem, boolean flag);
     }
 
     public MainFragment(){
@@ -70,6 +73,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         setHasOptionsMenu(true);
     }
 
@@ -79,22 +83,26 @@ public class MainFragment extends Fragment {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
+        id = item.getItemId();
 
         switch (id) {
             case R.id.most_popular:
                 SortOrder = SortPopular;
                 FinalURL = FEED_URL + SortOrder + "&api_key=" + API_KEY;
                 new GridViewTask().execute(FinalURL);
+               // changeMovieDetail(0);
                 return true;
             case R.id.highest_rated:
                 SortOrder = SortRating;
                 FinalURL = FEED_URL + SortOrder + "&api_key=" + API_KEY;
                 new GridViewTask().execute(FinalURL);
+                //changeMovieDetail(0);
                 return true;
             case R.id.my_favorites:
                 MoviesFavorite mf = new MoviesFavorite();
                 mf.onCreateView();
+                flag=true;
+                changeMovieDetail(0, flag);
                 return true;
             default:
                 return false;
@@ -102,14 +110,31 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt(SORT_KEY,id);
+    }
+
+    public void changeMovieDetail(int position,boolean flag){
+        MovieItem movieItem = new MovieItem();
+        GridItem gridItem = (GridItem) gridView.getItemAtPosition(position);
+        if(gridItem!=null) {
+            movieItem = gridItem.getMovieItem();
+            Log.d("Check Movie Item:", movieItem.getTitle());
+            Toast.makeText(getActivity(), movieItem.getTitle(), Toast.LENGTH_SHORT).show();
+            ((Callback) getActivity()).onItemSelected(movieItem, flag);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        View rootView = inflater.inflate(R.layout.activity_main,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_main,container,false);
 
-        if(savedInstanceState!=null){
-            SortOrder = savedInstanceState.getString(SORT_KEY);
-        }
+        if(savedInstanceState!=null) {
+            id = savedInstanceState.getInt(SORT_KEY);
+        }else {id = 0;}
 
         gridView = (GridView) rootView.findViewById(R.id.gridView);
         //initialize with empty data
@@ -117,28 +142,41 @@ public class MainFragment extends Fragment {
         gridAdapter = new GridViewAdapter(getActivity(), R.layout.grid_item, gridItems);
         gridView.setAdapter(gridAdapter);
         //let the download begin
-        FinalURL = FEED_URL + SortOrder + "&api_key=" + API_KEY;
-        new GridViewTask().execute(FinalURL);
+        if(id==0) {
+            FinalURL = FEED_URL + SortOrder + "&api_key=" + API_KEY;
+            new GridViewTask().execute(FinalURL);
+        }
+        else {
+            switch (id) {
+                case R.id.most_popular:
+                    SortOrder = SortPopular;
+                    FinalURL = FEED_URL + SortOrder + "&api_key=" + API_KEY;
+                    new GridViewTask().execute(FinalURL);
+                    break;
+                case R.id.highest_rated:
+                    SortOrder = SortRating;
+                    FinalURL = FEED_URL + SortOrder + "&api_key=" + API_KEY;
+                    new GridViewTask().execute(FinalURL);
+                    break;
+                case R.id.my_favorites:
+                    MoviesFavorite mf = new MoviesFavorite();
+                    mf.onCreateView();
+                    break;
+                default:
+                    SortOrder = SortPopular;
+                    FinalURL = FEED_URL + SortOrder + "&api_key=" + API_KEY;
+                    new GridViewTask().execute(FinalURL);
+                    break;
+            }
+        }
+
 
         //make gridview clickable
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent,View v,int position, long id){
-                Intent i = new Intent(getActivity(),MovieActivity.class);
-                MovieItem movieItem = new MovieItem();
-                GridItem gridItem = (GridItem) gridView.getItemAtPosition(position);
-                movieItem = gridItem.getMovieItem();
-                Log.d("Check Movie Item:",movieItem.getTitle());
-                Toast.makeText(getActivity(),movieItem.getTitle(),Toast.LENGTH_SHORT).show();
-                Bundle mBundle = new Bundle();
-                mBundle.putParcelable(PAR_KEY, movieItem);
-                try{
-                    i.putExtra("id",mBundle);
-                    startActivity(i);}
-                catch(Exception e){
-                    e.printStackTrace();
-                    Log.e("Error:",e.getMessage(),e);
-                }
+                flag=false;
+                changeMovieDetail(position,flag);
 
             }
         });
@@ -195,9 +233,11 @@ public class MainFragment extends Fragment {
                 gridAdapter.setGridData(gridItems);
                 //do something
             } else{
-                Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Failed to fetch data! No internet connection", Toast.LENGTH_SHORT).show();
                 //do something
             }
+            flag=true;
+            changeMovieDetail(0,flag);
         }
 
 
@@ -221,7 +261,7 @@ public class MainFragment extends Fragment {
                     String original_title = resultsObj.getString("original_title");
                     String overview = resultsObj.getString("overview");
                     String release_date = resultsObj.getString("release_date");
-                    String poster_path = MainActivity.BaseURL + "/" + MainActivity.posterSize + "/" + resultsObj.getString("poster_path");
+                    String poster_path = BaseURL + "/" + posterSize + "/" + resultsObj.getString("poster_path");
                     Double popularity = resultsObj.getDouble("popularity");
                     String title = resultsObj.getString("title");
                     String video = resultsObj.getString("video");
@@ -289,7 +329,9 @@ public class MainFragment extends Fragment {
             //prints the contents of the cursor on the screen
             //DatabaseUtils.dumpCursor(cursor);
             if (cursor == null || cursor.getCount() == 0){
-                insertData();
+                //Only used to insert data in table for checking purposes
+                //Else comment out the line below
+               // insertData();
                 cursor = getActivity().getContentResolver().query(MovieProvider.Movies.CONTENT_URI,
                         null, null, null, null);
             }
@@ -301,7 +343,7 @@ public class MainFragment extends Fragment {
                     GridItem item = new GridItem();
                     movieItem.setId(cursor.getInt(cursor.getColumnIndex(MovieColumns._ID)));
                     movieItem.setTitle(cursor.getString(cursor.getColumnIndex(MovieColumns.NAME)));
-                    movieItem.setPoster_path(MainActivity.BaseURL + "/" + MainActivity.posterSize + "/" + cursor.getString(cursor.getColumnIndex(MovieColumns.IMAGE)));
+                    movieItem.setPoster_path(BaseURL + "/" + posterSize + "/" + cursor.getString(cursor.getColumnIndex(MovieColumns.IMAGE)));
                     movieItem.setRelease_date(cursor.getString(cursor.getColumnIndex(MovieColumns.RELEASE_DATE)));
                     movieItem.setOriginal_language(cursor.getString(cursor.getColumnIndex(MovieColumns.LANGUAGE)));
                     movieItem.setVote_average(cursor.getDouble(cursor.getColumnIndex(MovieColumns.RATING)));
@@ -381,6 +423,12 @@ public class MainFragment extends Fragment {
             //figure out later
         }
     }
+
+    public void setUseTodayLayout(boolean useTodayLayout) {
+        mUseTodayLayout = useTodayLayout;
+
+    }
+
 }
 
 

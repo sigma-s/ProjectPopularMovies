@@ -14,15 +14,15 @@ import java.util.ArrayList;
  * Created by neelabh on 3/27/2016.
  */
 public class TrailerAdapter extends RecyclerView.Adapter<
-             TrailerAdapter.ViewHolder> {
-    private ArrayList<String> trailerList = new ArrayList<String>();
+             TrailerAdapter.MyViewHolder> {
+    private ArrayList<String> trailerList;
     OnItemClickListener mItemClickListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView image;
         public TextView text;
 
-        public ViewHolder(View v){
+        public MyViewHolder(View v){
             super(v);
             image = (ImageView)v.findViewById(R.id.trailer_image);
             text = (TextView)v.findViewById(R.id.trailer_text);
@@ -57,35 +57,25 @@ public class TrailerAdapter extends RecyclerView.Adapter<
     }
 
     public TrailerAdapter(ArrayList<String> myTrailerList){
-        //this.trailerList = myTrailerList;
-        for(int i=0;i<5;i++){
-            trailerList.add(i,"Trailer"+(i+1));
-        }
+        this.trailerList = myTrailerList;
     }
 
     @Override
-    public TrailerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public TrailerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.trailer_item,parent,false);
-        ViewHolder vh = new ViewHolder(v);
+        MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position){
+    public void onBindViewHolder(MyViewHolder holder, int position){
         holder.text.setText(trailerList.get(position));
-        notifyDataSetChanged();
-       /* holder.text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                remove(name);
-            }
-        });*/
     }
 
     @Override
     public int getItemCount(){
-        //return trailerList.size();
-        return 5;
+        return trailerList.size();
+        //return 5;
     }
 
 }
