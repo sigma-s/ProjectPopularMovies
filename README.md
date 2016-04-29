@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ProjectPopularMovies
 This android app will:
 
@@ -35,3 +36,6 @@ This android app will:
 
   You will extract the movie id from this request. You will need this in subsequent requests.
   
+=======
+# ProjectPopularMovies
+>>>>>>> 97b07642f5b6837f76e4f1a7d7b8743491effb3e
