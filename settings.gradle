@@ -1,1 +1,1 @@
-include ':app', ':schematic-compiler', ':schematic', ':schematic-annotations', ':schematic-samples'
+include ':app'

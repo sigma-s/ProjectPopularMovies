@@ -288,22 +288,6 @@ public class MovieFragment extends Fragment {
             TheMovieDBAPI movieTrailer = retrofit.create(TheMovieDBAPI.class);
             String url = MainFragment.API_URL + "movie/" +movie[0].getId() + "/videos" + "?api_key=" + MainFragment.API_KEY;
 
-          /*  Call<ResponseBody> call = movieTrailer.getTrailers(String.valueOf(movie[0].getId())
-                    ,MainActivity.API_KEY);
-            call.enqueue(new Callback<ResponseBody>(){
-                @Override
-                public void onResponse(Call<ResponseBody> call,Response<ResponseBody> response){
-                    try{
-                        Log.d("My app",response.body().string());
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
-                }
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t){
-                    System.out.println(t.getMessage());
-                }
-            });*/
             Call<TrailerItem> call = movieTrailer.getTrailers(String.valueOf(movie[0].getId())
                     ,MainFragment.API_KEY);
             try{
@@ -315,46 +299,9 @@ public class MovieFragment extends Fragment {
                 e.printStackTrace();
                 Log.e("ERROR", e.getMessage(), e);
             }
-            /*For asynchronous request - both Asynctask and Asynchronous Request bad combination
-            call.enqueue(new Callback<TrailerItem>() {
-                @Override
-                public void onResponse(Call<TrailerItem> call, Response<TrailerItem> response) {
-                    System.out.println("Response status code:" + response.code());
-                    if (!response.isSuccessful()) {
-                        // print response body if unsuccessful
-                        try {
-                            System.out.println(response.errorBody().string());
-                        }
-                        catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("ERROR", e.getMessage(), e);
-                        }
-                        return;
-                    }
-                    TrailerItem decodedResponse = response.body();
-                    if(decodedResponse==null)return;
 
-                    trailers = response.body();
-                   // int id = trailers.getId();
-                    //String output = response.body().toString();
-
-
-                    //int size = trailers.getTrailerList().size();
-                   // TrailerItem.Trailer id2 = trailers.getTrailerList().get(0);
-
-                }
-
-                @Override
-                public void onFailure(Call<TrailerItem> call, Throwable t) {
-                    System.out.println("onFailure");
-                    System.out.println(t.getMessage());
-
-                }
-            });*/
             int size2 = trailers.getTrailerList().size();
             return trailers;
-
-
         }
 
         @Override
@@ -375,9 +322,6 @@ public class MovieFragment extends Fragment {
                 if(trailers.getId()!=0 & list.size()!=0) {
                     sharingIntent.putExtra(Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=" + list.get(0).getKey());
 
-
-                    //mAdapter = new TrailerAdapter(myList);
-                    //mRecyclerView.setAdapter(mAdapter);
                     mAdapterT.SetOnItemClickListener(new TrailerAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(View v, int position) {

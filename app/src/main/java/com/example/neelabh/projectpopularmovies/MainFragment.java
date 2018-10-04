@@ -42,7 +42,7 @@ public class MainFragment extends Fragment {
     public static final String MAIN_TAG = MainActivity.class.getSimpleName();
     public static final String FEED_URL = "http://api.themoviedb.org/3/discover/movie?sort_by=";
     public static final String API_URL = "http://api.themoviedb.org/3/";
-    public static final String API_KEY = "put your API key here";
+    public static final String API_KEY = "Enter your API key here";
     public static final String BaseURL = "http://image.tmdb.org/t/p";
     public static final String posterSize = "w342";
     //private static final String LOG_TAG = MoviesFavorite.class.getSimpleName();

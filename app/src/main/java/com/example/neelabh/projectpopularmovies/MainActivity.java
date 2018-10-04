@@ -4,7 +4,6 @@ package com.example.neelabh.projectpopularmovies;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
@@ -13,7 +12,12 @@ import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 
 
 public class MainActivity extends AppCompatActivity implements MainFragment.Callback {
@@ -70,6 +74,29 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
         MainFragment mainFragment =  ((MainFragment)getFragmentManager()
                 .findFragmentById(R.id.main_fragment));
         mainFragment.setUseTodayLayout(!mTwoPane);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Branch branch = Branch.getInstance();
+
+        // Branch init
+        branch.initSession(new Branch.BranchReferralInitListener() {
+            @Override
+            public void onInitFinished(JSONObject referringParams, BranchError error) {
+                if (error == null) {
+                    Log.i("BRANCH SDK", referringParams.toString());
+                } else {
+                    Log.i("BRANCH SDK", error.getMessage());
+                }
+            }
+        }, this.getIntent().getData(), this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
     }
 
     @Override

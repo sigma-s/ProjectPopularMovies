@@ -4,10 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProjectPopularMovies.iml" filepath="$PROJECT_DIR$/ProjectPopularMovies.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/schematic/schematic.iml" filepath="$PROJECT_DIR$/schematic/schematic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/schematic-annotations/schematic-annotations.iml" filepath="$PROJECT_DIR$/schematic-annotations/schematic-annotations.iml" />
-      <module fileurl="file://$PROJECT_DIR$/schematic-compiler/schematic-compiler.iml" filepath="$PROJECT_DIR$/schematic-compiler/schematic-compiler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/schematic-samples/schematic-samples.iml" filepath="$PROJECT_DIR$/schematic-samples/schematic-samples.iml" />
     </modules>
   </component>
 </project>
